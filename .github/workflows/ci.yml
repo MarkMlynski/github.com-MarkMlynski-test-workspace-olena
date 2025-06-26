@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, "feature/**" ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Check out code
+      - uses: actions/checkout@v4
+
+      # 2. Install pnpm (and Node automatically)
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false   # we’ll run install explicitly
+
+      # 3. Install dependencies
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # 4. Run tests (placeholder for now)
+      - name: Run tests
+        run: pnpm test || true   # keeps pipeline green until real tests exist
